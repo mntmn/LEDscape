@@ -179,10 +179,10 @@ ledscape_remap(
 		panel_offset += panel_width - panel_x - 1;
 	}
 
-	return &frame[(panel_num*128 + panel_offset)*48*3 + output_line];
+	return &frame[(panel_num*128 + panel_offset)*48*4 + output_line];
 #else
 	(void) leds;
-	return &frame[x*48*3 + y];
+	return &frame[x*48*4 + y];
 #endif
 }
 
@@ -335,9 +335,10 @@ ledscape_strip_draw(
 			uint8_t * const row_out
 				= ledscape_remap(leds, out, x, y);
 			uint32_t p = row_in[x];
-			row_out[0*pru_stride] = (p >>  8) & 0xFF; // green
-			row_out[1*pru_stride] = (p >> 16) & 0xFF; // red
-			row_out[2*pru_stride] = (p >>  0) & 0xFF; // blue
+			row_out[0*pru_stride] = (p >> 16) & 0xFF; // green
+			row_out[1*pru_stride] = (p >> 24) & 0xFF; // red
+			row_out[2*pru_stride] = (p >>  8) & 0xFF; // blue
+			row_out[3*pru_stride] = (p >>  0); // white
 		}
 	}
 	

@@ -369,7 +369,8 @@ _LOOP:
 
 	// The data len is in pixels; convert it to 3 channels * pixels
 	ADD	r2, data_len, data_len
-	ADD	data_len, data_len, r2
+	ADD	r2, r2, r2
+	MOV	data_len, r2
 
 	WORD_LOOP:
 		// for bit in 8 to 0; one color at a time
